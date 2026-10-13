@@ -176,10 +176,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
             <div className="truncate">
               <h1 className="font-display font-black text-sm tracking-tight bg-gradient-to-r from-purple-700 via-indigo-700 to-cyan-600 dark:from-purple-300 dark:via-indigo-200 dark:to-cyan-300 bg-clip-text text-transparent truncate">
-                DTEP
+                DTWEP
               </h1>
               <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
-                Digital Twin Energy
+                Digital Twin EnergyPlus
               </p>
             </div>
           </NavLink>

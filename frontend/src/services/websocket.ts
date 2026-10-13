@@ -46,7 +46,7 @@ export class ExecutionWebSocket {
           id: Math.random().toString(36).substring(2, 9),
           timestamp: new Date().toLocaleTimeString(),
           stream: 'system',
-          text: '[SYSTEM] Connected to DTEP WebSocket execution engine.',
+          text: '[SYSTEM] Connected to DTWEP WebSocket execution engine.',
         });
       };
 

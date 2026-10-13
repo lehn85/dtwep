@@ -25,8 +25,8 @@ from cases.greenhouse import (
 )
 
 app = FastAPI(
-    title="Digital Twin Energy Platform (DTEP) API",
-    description="Multi-case Digital Twin Building & Greenhouse Energy Calibration Platform",
+    title="Digital Twin with EnergyPlus (DTWEP) API",
+    description="Multi-case Digital Twin Building & Greenhouse Energy Calibration Platform with EnergyPlus",
     version="0.3.0",
 )
 
@@ -258,7 +258,7 @@ else:
     @app.get("/")
     def serve_fallback():
         return {
-            "message": "DTEP API Server is Running.",
+            "message": "DTWEP API Server is Running.",
             "frontend": "Frontend dev server running on Vite port (default :5173). Build frontend for static production hosting.",
             "docs": "/docs",
         }

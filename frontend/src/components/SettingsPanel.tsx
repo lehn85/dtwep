@@ -212,7 +212,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
 
             <div className="space-y-2 mt-3 text-xs text-slate-600 dark:text-slate-300">
               <p>
-                <strong>Digital Twin Energy Platform (DTEP)</strong> is a multi-model co-simulation and building energy calibration platform.
+                <strong>Digital Twin with EnergyPlus (DTWEP)</strong> is a multi-model co-simulation and building energy calibration platform.
               </p>
               <ul className="list-disc list-inside space-y-1 text-slate-500 dark:text-slate-400 pt-1">
                 <li>Supports high-fidelity Model A and calibrated digital twin Model B.</li>

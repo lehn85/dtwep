@@ -1,7 +1,7 @@
 [project]
-name = "dt-ep"
+name = "dtwep"
 version = "0.1.0"
-description = "Add your description here"
+description = "Digital Twin with EnergyPlus (DTWEP)"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
