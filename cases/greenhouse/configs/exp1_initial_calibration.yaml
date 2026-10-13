@@ -1,0 +1,79 @@
+name: Experiment 1 - Initial Calibration Benchmark
+description: GA calibration of Model B against Model A target dataset with computational speedup & accuracy evaluation
+
+ground_truth:
+  type: simulation
+  base_osm_path: data/model_files/greenhouse_sawtooth.osm
+  extended_osm_path: data/model_files/greenhouse_sawtooth_extended.osm
+  extended_idf_path: data/model_files/greenhouse_sawtooth_extended.idf
+  output_dir: results/greenhouse/exp1_initial_calibration/model_a
+
+model_b:
+  base_osm_path: data/model_files/greenhouse_simple.osm
+  extended_osm_path: data/model_files/greenhouse_simple_extended.osm
+  extended_idf_path: data/model_files/greenhouse_simple_extended.idf
+  output_dir: results/greenhouse/exp1_initial_calibration/model_b
+
+weather:
+  epw_path: data/weather/VNM_CVN_Ban.Me.Thuot.488750_TMYx.2011-2025.epw
+
+calibration_config: cases/greenhouse/configs/calibration.yaml
+results_dir: results/greenhouse/exp1_initial_calibration
+
+target_variables:
+  - temp
+  - humidity
+  - indoor_solar
+  - t_glass
+  - grid_in
+  - grid_out
+  - pv
+  - soc
+
+y_labels:
+  temp: "Zone Temperature (°C)"
+  humidity: "Relative Humidity (%)"
+  indoor_solar: "Solar Gain (W)"
+  t_glass: "Glass Surface Temp (°C)"
+  grid_in: "Grid Import (W)"
+  grid_out: "Grid Export (W)"
+  pv: "PV Generation (W)"
+  soc: "Battery SoC (0-1)"
+
+outputs:
+  timeseries:
+    enabled: true
+    title: "So Sánh Chuỗi Thời Gian Co-Simulation (Model A vs Model B)"
+    allow_scenarios: false
+    allow_residual: true
+    series:
+      - key: "a"
+        label: "Model A (Ground Truth Target)"
+        color: "#2563eb"
+        dash: "solid"
+      - key: "b"
+        label: "Model B (Calibrated Digital Twin)"
+        color: "#8b5cf6"
+        dash: "dashed"
+
+  performance:
+    enabled: true
+    title: "Thời Gian Mô Phỏng & Hệ Số Tăng Tốc"
+    compare_labels:
+      model_a: "Model A (Mô hình gốc)"
+      model_b: "Model B (Digital Twin)"
+
+  fitness:
+    enabled: true
+    title: "Tối ưu hóa"
+    step_label: "Bước / Thế hệ"
+    fitness_label: "Hàm mục tiêu (Fitness)"
+    show_diversity: true
+
+  metrics_table:
+    enabled: true
+    title: "Bảng Chỉ Số Kiểm Định (Sau Hiệu Chỉnh)"
+    source: "metrics"
+    filter_condition: "Calibrated"
+    show_condition_column: false
+    show_ashrae_summary: false

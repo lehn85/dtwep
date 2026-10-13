@@ -1,0 +1,60 @@
+id: greenhouse
+name: Agrivoltaic Sawtooth Greenhouse
+type: virtual
+description: >-
+  High-fidelity digital twin of a multi-span sawtooth agrivoltaic greenhouse in Ban Me Thuot, Vietnam.
+  Features detailed solar radiation distribution, natural ventilation infiltration, roof-mounted PV generation, and battery energy storage.
+category: Agrivoltaic & Agriculture
+icon: Sprout
+tags:
+  - Sawtooth Roof
+  - Agrivoltaic PV
+  - Natural Ventilation
+  - BESS Battery
+  - Microclimate Calibration
+location: Ban Me Thuot, Vietnam (TMYx 2011-2025)
+calibration_config: configs/calibration.yaml
+
+models:
+  model_a:
+    name: Model A (High-Fidelity Virtual World)
+    description: 3D multi-span sawtooth greenhouse with detailed glazing, structural shadows, and PV panels.
+    base_osm: data/model_files/greenhouse_sawtooth.osm
+    extended_osm: data/model_files/greenhouse_sawtooth_extended.osm
+    extended_idf: data/model_files/greenhouse_sawtooth_extended.idf
+  model_b:
+    name: Model B (Simplified Digital Twin)
+    description: Low-order single-zone simplified geometry optimized for fast calibration and real-time co-simulation.
+    base_osm: data/model_files/greenhouse_simple.osm
+    extended_osm: data/model_files/greenhouse_simple_extended.osm
+    extended_idf: data/model_files/greenhouse_simple_extended.idf
+
+experiments:
+  - id: exp1_initial_calibration
+    name: "Experiment 1: Initial Calibration Benchmark"
+    description: GA calibration of Model B against Model A with computational speedup & ASHRAE accuracy evaluation.
+    config_file: exp1_initial_calibration.yaml
+    script: cases/greenhouse/exp1_initial_calibration.py
+    results_dir: results/greenhouse/exp1_initial_calibration
+    badge: "Speedup & Accuracy"
+    color: "violet"
+
+  - id: exp2_scenario_simulation
+    name: "Experiment 2: Multi-Scenario Cross-Validation"
+    description: Cross-validation of calibrated Model B against Model A across diverse seasons, weather extremes, and load shifting.
+    config_file: exp2_scenario_simulation.yaml
+    script: cases/greenhouse/exp2_scenario_simulation.py
+    results_dir: results/greenhouse/exp2_scenario_simulation
+    badge: "Cross Validation"
+    color: "cyan"
+
+  - id: exp3_recalibration
+    name: "Experiment 3: Degradation Tracking Benchmark"
+    description: Evaluation of recalibration capability when Model A undergoes envelope infiltration leak and PV degradation.
+    config_file: exp3_recalibration.yaml
+    script: cases/greenhouse/exp3_recalibration.py
+    results_dir: results/greenhouse/exp3_recalibration
+    badge: "Fault Drift"
+    color: "rose"
+
+

@@ -1,0 +1,113 @@
+name: Experiment 2 - Scenario Simulation Benchmark
+description: Multi-scenario validation of calibrated Model B against Model A across diverse seasons, weather extremes, and operations
+
+ground_truth:
+  type: simulation
+  extended_osm_path: data/model_files/greenhouse_sawtooth_extended.osm
+
+model_b:
+  extended_osm_path: data/model_files/greenhouse_simple_extended.osm
+
+weather:
+  standard: data/weather/VNM_CVN_Ban.Me.Thuot.488750_TMYx.2011-2025.epw
+  hot: data/weather/VNM_CVN_Ban.Me.Thuot_HOT.epw
+  cold: data/weather/VNM_CVN_Ban.Me.Thuot_COLD.epw
+
+calibration_results_path: results/greenhouse/exp1_initial_calibration/calibration_history.csv
+calibration_config: cases/greenhouse/configs/calibration.yaml
+results_dir: results/greenhouse/exp2_scenario_simulation
+
+target_variables:
+  - temp
+  - humidity
+  - indoor_solar
+  - t_glass
+  - grid_in
+  - grid_out
+  - pv
+  - soc
+
+y_labels:
+  temp: "Zone Temperature (°C)"
+  humidity: "Relative Humidity (%)"
+  indoor_solar: "Solar Gain (W)"
+  t_glass: "Glass Surface Temp (°C)"
+  grid_in: "Grid Import (W)"
+  grid_out: "Grid Export (W)"
+  pv: "PV Generation (W)"
+  soc: "Battery SoC (0-1)"
+
+scenarios:
+  - name: Summer Baseline
+    start_month: 7
+    start_day: 1
+    end_month: 7
+    end_day: 7
+    weather_key: standard
+    load_shift: false
+    degradation_fault: false
+
+  - name: Extreme Heatwave
+    start_month: 7
+    start_day: 1
+    end_month: 7
+    end_day: 7
+    weather_key: hot
+    load_shift: false
+    degradation_fault: false
+
+  - name: Extreme Cold Snap
+    start_month: 1
+    start_day: 1
+    end_month: 1
+    end_day: 7
+    weather_key: cold
+    load_shift: false
+    degradation_fault: false
+
+  - name: Load Shifting
+    start_month: 7
+    start_day: 1
+    end_month: 7
+    end_day: 7
+    weather_key: standard
+    load_shift: true
+    degradation_fault: false
+
+  - name: Degradation Fault
+    start_month: 7
+    start_day: 1
+    end_month: 7
+    end_day: 7
+    weather_key: standard
+    load_shift: false
+    degradation_fault: true
+
+outputs:
+  timeseries:
+    enabled: true
+    title: "So Sánh Chuỗi Thời Gian Theo Kịch Bản"
+    allow_scenarios: true
+    allow_residual: true
+    series:
+      - key: "a"
+        label: "Model A (Ground Truth)"
+        color: "#2563eb"
+        dash: "solid"
+      - key: "b"
+        label: "Model B (Digital Twin)"
+        color: "#8b5cf6"
+        dash: "dashed"
+
+  performance:
+    enabled: false
+
+  fitness:
+    enabled: false
+
+  metrics_table:
+    enabled: true
+    title: "Bảng Chỉ Số Đa Kịch Bản (Cross-Scenario Validation)"
+    source: "scenarios_metrics"
+    show_condition_column: false
+    show_ashrae_summary: true

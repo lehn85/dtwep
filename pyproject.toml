@@ -1,0 +1,26 @@
+[project]
+name = "dt-ep"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.136.0",
+    "httpx>=0.28.1",
+    "matplotlib>=3.7.0",
+    "openpyxl>=3.1.5",
+    "openstudio>=3.11.0",
+    "pandas>=2.0.0",
+    "pydantic>=2.13.3",
+    "pydantic-settings>=2.14.0",
+    "pyenergyplus-lbnl>=26.1.0",
+    "pyyaml>=6.0.3",
+    "uvicorn>=0.44.0",
+    "websockets>=16.0",
+]
+
+[tool.pyrefly]
+project-includes = [
+    "**/*.py*",
+    "**/*.ipynb",
+]

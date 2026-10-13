@@ -1,0 +1,80 @@
+name: Experiment 3 - Periodic Recalibration Benchmark
+description: Physical degradation tracking and parameter drift recalibration capability benchmark
+
+ground_truth:
+  type: simulation
+  extended_osm_path: data/model_files/greenhouse_sawtooth_extended.osm
+  extended_idf_path: data/model_files/greenhouse_sawtooth_extended.idf
+
+model_b:
+  extended_osm_path: data/model_files/greenhouse_simple_extended.osm
+  extended_idf_path: data/model_files/greenhouse_simple_extended.idf
+
+weather:
+  epw_path: data/weather/VNM_CVN_Ban.Me.Thuot.488750_TMYx.2011-2025.epw
+
+calibration_results_path: results/greenhouse/exp1_initial_calibration/calibration_history.csv
+calibration_config: cases/greenhouse/configs/calibration.yaml
+results_dir: results/greenhouse/exp3_recalibration
+
+target_variables:
+  - temp
+  - humidity
+  - indoor_solar
+  - t_glass
+  - grid_in
+  - grid_out
+  - pv
+  - soc
+
+y_labels:
+  temp: "Zone Temperature (°C)"
+  humidity: "Relative Humidity (%)"
+  indoor_solar: "Solar Gain (W)"
+  t_glass: "Glass Surface Temp (°C)"
+  grid_in: "Grid Import (W)"
+  grid_out: "Grid Export (W)"
+  pv: "PV Generation (W)"
+  soc: "Battery SoC (0-1)"
+
+fault:
+  infiltration_ach: 2.5
+  pv_active_fraction: 0.75
+
+outputs:
+  timeseries:
+    enabled: true
+    title: "So Sánh Chuỗi Thời Gian Trước & Sau Tái Hiệu Chỉnh"
+    allow_scenarios: false
+    allow_residual: true
+    series:
+      - key: "a"
+        label: "Model A (Ground Truth Biến Đổi)"
+        color: "#2563eb"
+        dash: "solid"
+      - key: "before"
+        label: "Model B (Trước Tái Hiệu Chỉnh)"
+        color: "#94a3b8"
+        dash: "dotted"
+      - key: "after"
+        label: "Model B (Sau Tái Hiệu Chỉnh)"
+        color: "#8b5cf6"
+        dash: "dashed"
+
+  performance:
+    enabled: false
+
+  fitness:
+    enabled: true
+    title: "Hội Tụ Tái Hiệu Chỉnh (Recalibration Convergence)"
+    step_label: "Bước / Thế hệ"
+    fitness_label: "Hàm mục tiêu (Fitness)"
+    show_diversity: true
+
+  metrics_table:
+    enabled: true
+    title: "Bảng Chỉ Số Kiểm Định So Sánh Trước & Sau Tái Hiệu Chỉnh"
+    source: "metrics"
+    filter_condition: null
+    show_condition_column: true
+    show_ashrae_summary: true

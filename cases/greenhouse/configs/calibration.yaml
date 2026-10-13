@@ -1,0 +1,204 @@
+name: Greenhouse Agrivoltaic Digital Twin Calibration
+description: Multi-objective calibration of simplified Model B against high-fidelity Model A
+simulation:
+  base_osm_path: data/model_files/greenhouse_simple_extended.osm
+  base_idf_path: data/model_files/greenhouse_simple_extended.idf
+  epw_path: data/weather/VNM_CVN_Ban.Me.Thuot.488750_TMYx.2011-2025.epw
+  output_dir: results/greenhouse/calibration
+  timesteps_per_hour: 6
+  run_period:
+    - 7
+    - 1
+    - 7
+    - 7
+optimizer:
+  algorithm: genetic_algorithm
+  pop_size: 100
+  generations: 30
+  mutation_rate: 0.15
+  elite_count: 1
+  tournament_size: 3
+  max_workers: null
+parameters:
+  - name: infiltration
+    bounds:
+      - 0.1
+      - 5
+    default: 0.5
+    target:
+      object_type: SpaceInfiltrationDesignFlowRate
+      setter: setAirChangesperHour
+    description: Infiltration air change rate (ACH)
+  - name: u_value
+    bounds:
+      - 1
+      - 7
+    default: 3.4
+    target:
+      object_type: SimpleGlazing
+      name_filter: Window Material
+      setter: setUFactor
+    description: Vertical glazing U-value (W/m2-K)
+  - name: inverter_eff
+    bounds:
+      - 0.1
+      - 0.95
+    default: 0.9
+    target:
+      object_type: ElectricLoadCenterInverterSimple
+      setter: setInverterEfficiency
+    description: PV Inverter efficiency fraction
+  - name: pv_active_fraction
+    bounds:
+      - 0.1
+      - 1
+    default: 0.95
+    target:
+      object_type: PhotovoltaicPerformanceSimple
+      setter: setFractionOfSurfaceAreaWithActiveSolarCells
+    description: PV active cell area fraction
+  - name: fan_flow_rate
+    bounds:
+      - 0.1
+      - 2
+    default: 0.5
+    target:
+      object_type: FanZoneExhaust
+      setter: setMaximumFlowRate
+    description: Exhaust fan maximum flow rate (m3/s)
+  - name: roof_u_value
+    bounds:
+      - 1
+      - 15
+    default: 2.5
+    target:
+      object_type: SimpleGlazing
+      name_filter: Roof Glazing Material
+      setter: setUFactor
+    description: Flat roof skylight U-value (W/m2-K)
+  - name: roof_shgc
+    bounds:
+      - 0.1
+      - 0.95
+    default: 0.8
+    target:
+      object_type: SimpleGlazing
+      name_filter: Roof Glazing Material
+      setter: setSolarHeatGainCoefficient
+    description: Flat roof skylight Solar Heat Gain Coefficient
+  - name: zone_capacitance
+    bounds:
+      - 1
+      - 15
+    default: 1
+    target:
+      object_type: ZoneCapacitanceMultiplierResearchSpecial
+      setter: setTemperatureCapacityMultiplier
+    description: Thermal zone capacitance multiplier
+  - name: equip_latent_fraction
+    bounds:
+      - 0
+      - 0.5
+    default: 0
+    target:
+      object_type: ElectricEquipmentDefinition
+      setter: setFractionLatent
+    description: Equipment latent moisture fraction
+  - name: window_shgc
+    bounds:
+      - 0.05
+      - 0.95
+    default: 0.8
+    target:
+      object_type: SimpleGlazing
+      name_filter: Window Material
+      setter: setSolarHeatGainCoefficient
+    description: Vertical glazing Solar Heat Gain Coefficient
+objectives:
+  - name: temp
+    column: temp
+    weight: 0.15
+    normalization: z_score
+    metric: rmse
+    description: Indoor air temperature loss
+  - name: humidity
+    column: humidity
+    weight: 0.15
+    normalization: z_score
+    metric: rmse
+    description: Indoor relative humidity loss
+  - name: indoor_solar
+    column: indoor_solar
+    weight: 0.15
+    normalization: z_score
+    metric: rmse
+    description: Indoor solar heat gain loss
+  - name: t_glass
+    column: t_glass
+    weight: 0.15
+    normalization: z_score
+    metric: rmse
+    description: Glass outer surface temperature loss
+  - name: grid_in
+    column: grid_in
+    weight: 0.05
+    normalization: z_score
+    metric: rmse
+    description: Facility grid purchased electricity power loss
+  - name: grid_out
+    column: grid_out
+    weight: 0.05
+    normalization: z_score
+    metric: rmse
+    description: Facility grid surplus sold electricity power loss
+  - name: pv
+    column: pv
+    weight: 0.05
+    normalization: z_score
+    metric: rmse
+    description: PV power generation loss
+  - name: soc
+    column: soc
+    weight: 0.01
+    normalization: z_score
+    metric: rmse
+    description: Battery state of charge loss
+output_mappings:
+  - name: zone_temp
+    var_name: Zone Air Temperature
+    key_value: GREENHOUSE ZONE MAIN
+    aggregation: mean
+    rename_to: temp
+  - name: pv_generation
+    var_name: Electric Load Center Produced Electricity Rate
+    aggregation: sum
+    rename_to: pv
+  - name: battery_soc
+    var_name: Electric Storage Simple Charge State
+    aggregation: first
+    scale_multiplier: 5.555555555555556e-8
+    rename_to: soc
+  - name: zone_humidity
+    var_name: Zone Air Relative Humidity
+    key_value: GREENHOUSE ZONE MAIN
+    aggregation: mean
+    rename_to: humidity
+  - name: window_solar_gain
+    var_name: Zone Windows Total Heat Gain Rate
+    aggregation: sum
+    rename_to: indoor_solar
+  - name: glass_surface_temp
+    var_name: Surface Outside Face Temperature
+    key_value_filter: WALL|VERTICAL
+    aggregation: mean
+    rename_to: t_glass
+  - name: grid_purchased
+    var_name: ElectricityPurchased:Facility
+    aggregation: sum
+    scale_multiplier: 0.0016666666666666668
+    rename_to: grid_in
+  - name: grid_sold
+    var_name: ElectricitySurplusSold:Facility
+    aggregation: sum
+    scale_multiplier: 0.0016666666666666668
+    rename_to: grid_out
