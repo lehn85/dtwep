@@ -4,6 +4,7 @@ Copyright Statement:
 
 Author: Daidai Qiu
 Author's email: qiu.daidai@outlook.com
+Github repo: https://github.com/greenpeer/GreenLightPlus
 
 This code is licensed under the GNU GPLv3 License. For details, see the LICENSE file.
 """
