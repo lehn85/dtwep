@@ -3,7 +3,7 @@ Version,
   25.2;                                   !- Version Identifier
 
 Timestep,
-  1;                                      !- Number of Timesteps per Hour
+  6;                                      !- Number of Timesteps per Hour
 
 LifeCycleCost:Parameters,
   Life Cycle Cost Parameters,             !- Name
@@ -3255,7 +3255,7 @@ Lights,
   Lights_Schedule,                        !- Schedule Name
   Watts/Area,                             !- Design Level Calculation Method
   ,                                       !- Lighting Level {W}
-  10,                                     !- Watts per Floor Area {W/m2}
+  5,                                      !- Watts per Floor Area {W/m2}
   ,                                       !- Watts per Person {W/person}
   ,                                       !- Return Air Fraction
   ,                                       !- Fraction Radiant
@@ -3264,14 +3264,15 @@ Lights,
   General;                                !- End-Use Subcategory
 
 ScheduleTypeLimits,
-  Fractional 1,                           !- Name
+  Fractional,                             !- Name
   0,                                      !- Lower Limit Value {BasedOnField A3}
   1,                                      !- Upper Limit Value {BasedOnField A3}
-  Continuous;                             !- Numeric Type
+  Continuous,                             !- Numeric Type
+  dimensionless;                          !- Unit Type
 
 Schedule:Day:Interval,
   Schedule Day 1,                         !- Name
-  Fractional 1,                           !- Schedule Type Limits Name
+  Fractional,                             !- Schedule Type Limits Name
   No,                                     !- Interpolate to Timestep
   18:00,                                  !- Time 1 {hh:mm}
   0,                                      !- Value Until Time 1
@@ -3297,7 +3298,7 @@ Schedule:Week:Daily,
 
 Schedule:Year,
   Lights_Schedule,                        !- Name
-  Fractional 1,                           !- Schedule Type Limits Name
+  Fractional,                             !- Schedule Type Limits Name
   Lights_Schedule Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
   1,                                      !- Start Month 1
   1,                                      !- Start Day 1
@@ -3319,7 +3320,7 @@ ElectricEquipment,
 
 Schedule:Day:Interval,
   Schedule Day 3,                         !- Name
-  Fractional 1,                           !- Schedule Type Limits Name
+  Fractional,                             !- Schedule Type Limits Name
   No,                                     !- Interpolate to Timestep
   06:00,                                  !- Time 1 {hh:mm}
   0,                                      !- Value Until Time 1
@@ -3349,7 +3350,7 @@ Schedule:Week:Daily,
 
 Schedule:Year,
   Pump_Schedule,                          !- Name
-  Fractional 1,                           !- Schedule Type Limits Name
+  Fractional,                             !- Schedule Type Limits Name
   Pump_Schedule Week Rule - Jan1-Dec31,   !- Schedule:Week Name 1
   1,                                      !- Start Month 1
   1,                                      !- Start Day 1
@@ -3386,7 +3387,7 @@ Fan:ZoneExhaust,
   ExhaustFan_Greenhouse Zone Main,        !- Name
   Fan_Schedule,                           !- Availability Schedule Name
   0.6,                                    !- Fan Total Efficiency
-  0,                                      !- Pressure Rise {Pa}
+  125,                                    !- Pressure Rise {Pa}
   0.5,                                    !- Maximum Flow Rate {m3/s}
   Node 2,                                 !- Air Inlet Node Name
   Node 3,                                 !- Air Outlet Node Name
@@ -3395,7 +3396,7 @@ Fan:ZoneExhaust,
   Decoupled;                              !- System Availability Manager Coupling Mode
 
 ScheduleTypeLimits,
-  OnOff 1,                                !- Name
+  OnOff,                                  !- Name
   0,                                      !- Lower Limit Value {BasedOnField A3}
   1,                                      !- Upper Limit Value {BasedOnField A3}
   Discrete,                               !- Numeric Type
@@ -3403,11 +3404,11 @@ ScheduleTypeLimits,
 
 Schedule:Day:Interval,
   Schedule Day 2,                         !- Name
-  OnOff 1,                                !- Schedule Type Limits Name
+  OnOff,                                  !- Schedule Type Limits Name
   No,                                     !- Interpolate to Timestep
-  10:00,                                  !- Time 1 {hh:mm}
+  09:00,                                  !- Time 1 {hh:mm}
   0,                                      !- Value Until Time 1
-  16:00,                                  !- Time 2 {hh:mm}
+  15:00,                                  !- Time 2 {hh:mm}
   1,                                      !- Value Until Time 2
   24:00,                                  !- Time 3 {hh:mm}
   0;                                      !- Value Until Time 3
@@ -3429,7 +3430,7 @@ Schedule:Week:Daily,
 
 Schedule:Year,
   Fan_Schedule,                           !- Name
-  OnOff 1,                                !- Schedule Type Limits Name
+  OnOff,                                  !- Schedule Type Limits Name
   Fan_Schedule Week Rule - Jan1-Dec31,    !- Schedule:Week Name 1
   1,                                      !- Start Month 1
   1,                                      !- Start Day 1
@@ -3457,10 +3458,10 @@ SimulationControl,
 
 RunPeriod,
   Run Period 1,                           !- Name
-  4,                                      !- Begin Month
+  7,                                      !- Begin Month
   1,                                      !- Begin Day of Month
   2006,                                   !- Begin Year
-  4,                                      !- End Month
+  7,                                      !- End Month
   7,                                      !- End Day of Month
   2006,                                   !- End Year
   Saturday,                               !- Day of Week for Start Day
@@ -13657,14 +13658,13 @@ Schedule:Constant,
   1;                                      !- Hourly Value
 
 ScheduleTypeLimits,
-  Fractional,                             !- Name
+  Fractional 1,                           !- Name
   0,                                      !- Lower Limit Value {BasedOnField A3}
   1,                                      !- Upper Limit Value {BasedOnField A3}
-  Continuous,                             !- Numeric Type
-  dimensionless;                          !- Unit Type
+  Continuous;                             !- Numeric Type
 
 ScheduleTypeLimits,
-  OnOff,                                  !- Name
+  OnOff 1,                                !- Name
   0,                                      !- Lower Limit Value {BasedOnField A3}
   1,                                      !- Upper Limit Value {BasedOnField A3}
   Discrete,                               !- Numeric Type
@@ -13856,9 +13856,9 @@ ElectricLoadCenter:Storage:Simple,
   0,                                      !- Radiative Fraction for Zone Heat Gains
   0.95,                                   !- Nominal Energetic Efficiency for Charging
   0.95,                                   !- Nominal Discharging Energetic Efficiency
-  180000000,                              !- Maximum Storage Capacity {J}
-  50000,                                  !- Maximum Power for Discharging {W}
-  50000,                                  !- Maximum Power for Charging {W}
+  18000000,                               !- Maximum Storage Capacity {J}
+  5000,                                   !- Maximum Power for Discharging {W}
+  5000,                                   !- Maximum Power for Charging {W}
   0;                                      !- Initial State of Charge {J}
 
 ElectricLoadCenter:Distribution,
@@ -13950,7 +13950,22 @@ Output:Variable,
 
 Output:Variable,
   *,                                      !- Key Value
+  Zone Windows Total Heat Gain Rate,      !- Variable Name
+  Timestep;                               !- Reporting Frequency
+
+Output:Variable,
+  *,                                      !- Key Value
   Zone Mean Air Temperature,              !- Variable Name
+  Timestep;                               !- Reporting Frequency
+
+Output:Variable,
+  *,                                      !- Key Value
+  Surface Outside Face Temperature,       !- Variable Name
+  Timestep;                               !- Reporting Frequency
+
+Output:Variable,
+  *,                                      !- Key Value
+  Zone Air Relative Humidity,             !- Variable Name
   Timestep;                               !- Reporting Frequency
 
 Output:Variable,

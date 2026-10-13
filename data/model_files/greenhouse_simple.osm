@@ -13978,13 +13978,13 @@ OS:ScheduleTypeLimits,
   Availability;                           !- Unit Type
 
 OS:Schedule:Constant,
-  {a2eb1563-8165-426c-a21b-6239d955a98d}, !- Handle
+  {11b0cd82-c8de-40fc-b4c7-10e5b9e048ed}, !- Handle
   Always Off Discrete,                    !- Name
-  {addc9215-a5ed-4db7-9fd6-0f3dd95376aa}, !- Schedule Type Limits Name
+  {5a436641-8f0c-42f6-a03f-5bc754425061}, !- Schedule Type Limits Name
   0;                                      !- Value
 
 OS:ScheduleTypeLimits,
-  {addc9215-a5ed-4db7-9fd6-0f3dd95376aa}, !- Handle
+  {5a436641-8f0c-42f6-a03f-5bc754425061}, !- Handle
   OnOff 1,                                !- Name
   0,                                      !- Lower Limit Value
   1,                                      !- Upper Limit Value
@@ -13992,13 +13992,13 @@ OS:ScheduleTypeLimits,
   Availability;                           !- Unit Type
 
 OS:Schedule:Constant,
-  {022dacf8-6e71-4962-94f9-8aa4938ad1c1}, !- Handle
+  {819b861c-590d-45aa-9dd1-6952426beec0}, !- Handle
   Always On Continuous,                   !- Name
-  {d2cafe8c-864e-4e3d-9616-ccbcd6ebbcc0}, !- Schedule Type Limits Name
+  {18b35fc9-0516-4d5b-bda1-4955139534bf}, !- Schedule Type Limits Name
   1;                                      !- Value
 
 OS:ScheduleTypeLimits,
-  {d2cafe8c-864e-4e3d-9616-ccbcd6ebbcc0}, !- Handle
+  {18b35fc9-0516-4d5b-bda1-4955139534bf}, !- Handle
   Fractional 1,                           !- Name
   0,                                      !- Lower Limit Value
   1,                                      !- Upper Limit Value
@@ -14006,24 +14006,24 @@ OS:ScheduleTypeLimits,
   ;                                       !- Unit Type
 
 OS:YearDescription,
-  {c5f4ba54-05c1-4edf-9fe8-d168c96eb8f1}, !- Handle
+  {57992324-8b18-454e-8f73-256376d166c4}, !- Handle
   ;                                       !- Calendar Year
 
 OS:WindowMaterial:SimpleGlazingSystem,
-  {dfc88124-346b-4799-8dc0-f31c043d51f1}, !- Handle
+  {5e092577-fd3e-4793-beae-67869fc51d1a}, !- Handle
   Roof Glazing Material,                  !- Name
   2.5,                                    !- U-Factor {W/m2-K}
   0.8,                                    !- Solar Heat Gain Coefficient
   0.8;                                    !- Visible Transmittance
 
 OS:Construction,
-  {6a6abb7d-e434-4c05-8183-a52cede622ea}, !- Handle
+  {e0a9e2cd-feb8-4969-956f-2866f527af18}, !- Handle
   Roof Glazing Construction,              !- Name
   ,                                       !- Surface Rendering Name
-  {dfc88124-346b-4799-8dc0-f31c043d51f1}; !- Layer 1
+  {5e092577-fd3e-4793-beae-67869fc51d1a}; !- Layer 1
 
 OS:Surface,
-  {770f209d-9c3b-401a-a263-aabcfbf288c5}, !- Handle
+  {1deee036-0d1b-4c9e-b98f-c599a29b6274}, !- Handle
   Surface 101,                            !- Name
   RoofCeiling,                            !- Surface Type
   {30db36e6-91bc-4d59-8037-ce69bcb54b71}, !- Construction Name
@@ -14040,11 +14040,11 @@ OS:Surface,
   0, 0, 6.5;                              !- X,Y,Z Vertex 4 {m}
 
 OS:SubSurface,
-  {2da56fd9-1e40-45f2-9e67-f0af67822fdb}, !- Handle
+  {eed0e23e-ff79-4e50-ab86-f4016a6e987c}, !- Handle
   Roof Skylight,                          !- Name
   Skylight,                               !- Sub Surface Type
-  {6a6abb7d-e434-4c05-8183-a52cede622ea}, !- Construction Name
-  {770f209d-9c3b-401a-a263-aabcfbf288c5}, !- Surface Name
+  {e0a9e2cd-feb8-4969-956f-2866f527af18}, !- Construction Name
+  {1deee036-0d1b-4c9e-b98f-c599a29b6274}, !- Surface Name
   ,                                       !- Outside Boundary Condition Object
   ,                                       !- View Factor to Ground
   ,                                       !- Frame and Divider Name
