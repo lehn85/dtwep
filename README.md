@@ -83,6 +83,8 @@ digital-twin-with-energy-plus/
 ├── cases/                               # Pluggable case studies directory
 │   └── greenhouse/                      # Agrivoltaic Sawtooth Greenhouse case
 │       ├── case.yaml                    # Case metadata, models, and registered experiments
+│       ├── models/                      # Seed baseline OpenStudio model (greenhouse_sawtooth.osm)
+│       ├── weather/                     # Case EnergyPlus weather files (EPW)
 │       ├── adapters.py                  # Domain-specific parameter mappers
 │       ├── geometry.py                  # Parametric OpenStudio geometry generator
 │       ├── model_transform.py           # Model A extension and simplification to Model B
@@ -95,14 +97,12 @@ digital-twin-with-energy-plus/
 │           ├── exp1_initial_calibration.yaml
 │           ├── exp2_scenario_simulation.yaml
 │           └── exp3_recalibration.yaml
-├── data/                                # Model files and weather datasets
-│   ├── model_files/                     # Base and extended OSM / IDF models
-│   └── weather/                         # EnergyPlus weather files (EPW)
 ├── frontend/                            # React + Vite + TypeScript frontend source code
 │   ├── src/                             # UI components, API clients, and styles
 │   ├── dist/                            # Production build served by FastAPI
 │   └── package.json                     # Frontend dependencies & build scripts
 ├── results/                             # Generated experiment outputs, CSV metrics & plots
+│   └── greenhouse/models/               # Generated extended OSM/IDF models & simplified Model B (git-ignored)
 ├── run_greenhouse_experiments.ps1       # Interactive PowerShell experiment runner (Windows)
 ├── run_greenhouse_experiments.sh        # Interactive Bash experiment runner (Linux/macOS)
 ├── main.py                              # FastAPI entry point (REST APIs, WebSocket, SPA host)

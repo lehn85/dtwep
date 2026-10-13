@@ -150,7 +150,7 @@ wheels = [
 ]
 
 [[package]]
-name = "dt-ep"
+name = "dtwep"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

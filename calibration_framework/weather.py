@@ -163,6 +163,41 @@ class FileWeatherProvider(BaseWeatherProvider):
 
         resolved = self.resolve_path(target_path)
         if not resolved or not resolved.exists():
+            # Check if this can be auto-synthesized from a base/standard EPW
+            base_cand = (
+                (self.config.files.get("standard") if self.config.files else None)
+                or (self.config.files.get("default") if self.config.files else None)
+                or self.config.epw_path
+                or self.config.base_epw
+                or (next(iter(self.config.files.values())) if self.config.files else None)
+            )
+            base_epw = self.resolve_path(base_cand) if base_cand else None
+            if base_epw and base_epw.exists() and resolved:
+                name_lower = str(target_path).lower()
+                key_lower = str(weather_key).lower()
+                if "hot" in key_lower or "heatwave" in key_lower or "_hot" in name_lower:
+                    print(f"[WeatherProvider] Auto-synthesizing extreme heatwave weather file: {resolved}")
+                    resolved.parent.mkdir(parents=True, exist_ok=True)
+                    SyntheticWeatherProvider._apply_epw_transformations(
+                        input_epw=base_epw,
+                        output_epw=resolved,
+                        temp_shift=4.0,
+                        dew_point_shift=2.0,
+                        solar_multiplier=1.15,
+                    )
+                    return resolved
+                elif "cold" in key_lower or "cold_snap" in key_lower or "_cold" in name_lower:
+                    print(f"[WeatherProvider] Auto-synthesizing extreme cold snap weather file: {resolved}")
+                    resolved.parent.mkdir(parents=True, exist_ok=True)
+                    SyntheticWeatherProvider._apply_epw_transformations(
+                        input_epw=base_epw,
+                        output_epw=resolved,
+                        temp_shift=-4.0,
+                        dew_point_shift=-2.0,
+                        solar_multiplier=0.85,
+                    )
+                    return resolved
+
             raise FileNotFoundError(f"Weather EPW file not found: {resolved}")
         return resolved
 
@@ -191,7 +226,13 @@ class SyntheticWeatherProvider(BaseWeatherProvider):
 
         # Extract shift / perturbation parameters
         temp_shift = float(ctx.get("temp_shift", self.config.temp_shift))
-        dew_point_shift = float(ctx.get("dew_point_shift", getattr(self.config, "dew_point_shift", temp_shift)))
+        raw_dew_point = ctx.get("dew_point_shift")
+        if raw_dew_point is None:
+            raw_dew_point = getattr(self.config, "dew_point_shift", None)
+        if raw_dew_point is None:
+            raw_dew_point = temp_shift
+        dew_point_shift = float(raw_dew_point)
+
         solar_multiplier = float(ctx.get("solar_multiplier", self.config.solar_multiplier))
         wind_multiplier = float(ctx.get("wind_multiplier", getattr(self.config, "wind_multiplier", 1.0)))
 
@@ -245,10 +286,17 @@ class SyntheticWeatherProvider(BaseWeatherProvider):
                     # Index 14: Direct Normal Radiation (Wh/m2)
                     # Index 15: Diffuse Horizontal Radiation (Wh/m2)
                     # Index 21: Wind Speed (m/s)
+                    dry_bulb = float(parts[6])
+                    dew_point = float(parts[7])
                     if temp_shift != 0.0:
-                        parts[6] = f"{float(parts[6]) + temp_shift:.1f}"
+                        dry_bulb += temp_shift
                     if dew_point_shift != 0.0:
-                        parts[7] = f"{float(parts[7]) + dew_point_shift:.1f}"
+                        dew_point += dew_point_shift
+                    # Ensure physical psychrometric consistency: DewPoint <= DryBulb
+                    dew_point = min(dew_point, dry_bulb)
+                    parts[6] = f"{dry_bulb:.1f}"
+                    parts[7] = f"{dew_point:.1f}"
+
                     if solar_multiplier != 1.0:
                         parts[13] = f"{max(0.0, float(parts[13]) * solar_multiplier):.0f}"
                         parts[14] = f"{max(0.0, float(parts[14]) * solar_multiplier):.0f}"

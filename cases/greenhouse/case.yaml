@@ -19,15 +19,15 @@ models:
   model_a:
     name: Model A (High-Fidelity Virtual World)
     description: 3D multi-span sawtooth greenhouse with detailed glazing, structural shadows, and PV panels.
-    base_osm: data/model_files/greenhouse_sawtooth.osm
-    extended_osm: data/model_files/greenhouse_sawtooth_extended.osm
-    extended_idf: data/model_files/greenhouse_sawtooth_extended.idf
+    base_osm: cases/greenhouse/models/greenhouse_sawtooth.osm
+    extended_osm: results/greenhouse/models/greenhouse_sawtooth_extended.osm
+    extended_idf: results/greenhouse/models/greenhouse_sawtooth_extended.idf
   model_b:
     name: Model B (Simplified Digital Twin)
     description: Low-order single-zone simplified geometry optimized for fast calibration and real-time co-simulation.
-    base_osm: data/model_files/greenhouse_simple.osm
-    extended_osm: data/model_files/greenhouse_simple_extended.osm
-    extended_idf: data/model_files/greenhouse_simple_extended.idf
+    base_osm: results/greenhouse/models/greenhouse_simple.osm
+    extended_osm: results/greenhouse/models/greenhouse_simple_extended.osm
+    extended_idf: results/greenhouse/models/greenhouse_simple_extended.idf
 
 experiments:
   - id: exp1_initial_calibration

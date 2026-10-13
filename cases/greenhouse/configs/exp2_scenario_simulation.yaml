@@ -3,15 +3,15 @@ description: Multi-scenario validation of calibrated Model B against Model A acr
 
 ground_truth:
   type: simulation
-  extended_osm_path: data/model_files/greenhouse_sawtooth_extended.osm
+  extended_osm_path: results/greenhouse/models/greenhouse_sawtooth_extended.osm
 
 model_b:
-  extended_osm_path: data/model_files/greenhouse_simple_extended.osm
+  extended_osm_path: results/greenhouse/models/greenhouse_simple_extended.osm
 
 weather:
-  standard: data/weather/VNM_CVN_Ban.Me.Thuot.488750_TMYx.2011-2025.epw
-  hot: data/weather/VNM_CVN_Ban.Me.Thuot_HOT.epw
-  cold: data/weather/VNM_CVN_Ban.Me.Thuot_COLD.epw
+  standard: cases/greenhouse/weather/VNM_CVN_Ban.Me.Thuot.488750_TMYx.2011-2025.epw
+  hot: cases/greenhouse/weather/VNM_CVN_Ban.Me.Thuot_HOT.epw
+  cold: cases/greenhouse/weather/VNM_CVN_Ban.Me.Thuot_COLD.epw
 
 calibration_results_path: results/greenhouse/exp1_initial_calibration/calibration_history.csv
 calibration_config: cases/greenhouse/configs/calibration.yaml

@@ -3,15 +3,15 @@ description: Physical degradation tracking and parameter drift recalibration cap
 
 ground_truth:
   type: simulation
-  extended_osm_path: data/model_files/greenhouse_sawtooth_extended.osm
-  extended_idf_path: data/model_files/greenhouse_sawtooth_extended.idf
+  extended_osm_path: results/greenhouse/models/greenhouse_sawtooth_extended.osm
+  extended_idf_path: results/greenhouse/models/greenhouse_sawtooth_extended.idf
 
 model_b:
-  extended_osm_path: data/model_files/greenhouse_simple_extended.osm
-  extended_idf_path: data/model_files/greenhouse_simple_extended.idf
+  extended_osm_path: results/greenhouse/models/greenhouse_simple_extended.osm
+  extended_idf_path: results/greenhouse/models/greenhouse_simple_extended.idf
 
 weather:
-  epw_path: data/weather/VNM_CVN_Ban.Me.Thuot.488750_TMYx.2011-2025.epw
+  epw_path: cases/greenhouse/weather/VNM_CVN_Ban.Me.Thuot.488750_TMYx.2011-2025.epw
 
 calibration_results_path: results/greenhouse/exp1_initial_calibration/calibration_history.csv
 calibration_config: cases/greenhouse/configs/calibration.yaml

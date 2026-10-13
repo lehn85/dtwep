@@ -124,8 +124,8 @@ class GreenhouseGeometry:
 
         # Add weather file to prevent UseWeatherFile warnings
         epw_path_str = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-            "data", "weather", "VNM_CVN_Ban.Me.Thuot.488750_TMYx.2011-2025.epw"
+            os.path.dirname(os.path.abspath(__file__)),
+            "weather", "VNM_CVN_Ban.Me.Thuot.488750_TMYx.2011-2025.epw"
         )
         epw_path = openstudio.toPath(epw_path_str)
         epw_file_opt = openstudio.EpwFile.load(epw_path)
@@ -685,17 +685,17 @@ class GreenhouseGeometry:
         open_area_schedule_right.setScheduleTypeLimits(schedule_type_limits)
 
         # 创建用于存储窗户调度的文件夹，并设置随机数种子
-        folder_path = "data/window_schedule"
+        folder_path = "results/greenhouse/window_schedule"
         os.makedirs(folder_path, exist_ok=True)
 
         # 为左右两部分屋顶分别写入窗户调度
         self.write_window_schedule_to_csv(
             open_area_schedule_left,
-            f"data/window_schedule/window_schedule_{self.roof_type}_left_{self.time_step}.csv",
+            f"{folder_path}/window_schedule_{self.roof_type}_left_{self.time_step}.csv",
         )
         self.write_window_schedule_to_csv(
             open_area_schedule_right,
-            f"data/window_schedule/window_schedule_{self.roof_type}_right_{self.time_step}.csv",
+            f"{folder_path}/window_schedule_{self.roof_type}_right_{self.time_step}.csv",
         )
 
         # # 将窗户调度写入CSV文件
@@ -1368,9 +1368,9 @@ class GreenhouseGeometry:
         # 修正屋顶热区体积，手动重新设置屋顶热区的体积
         self.thermal_zone_roof.setVolume(self.roof_volume)
 
-        folder_path = "data/model_files"
+        folder_path = "results/greenhouse/models"
         if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
+            os.makedirs(folder_path, exist_ok=True)
 
         self.create_window_schedule()
 
@@ -1385,7 +1385,7 @@ class GreenhouseGeometry:
         forward_translator = openstudio.energyplus.ForwardTranslator()
         workspace = forward_translator.translateModel(self.model)
 
-        idf_path = f"data/model_files/greenhouse_{self.roof_type}.idf"
+        idf_path = f"{folder_path}/greenhouse_{self.roof_type}.idf"
 
         # 保存IDF文件
         workspace.save(openstudio.toPath(idf_path), True)
@@ -1395,7 +1395,7 @@ class GreenhouseGeometry:
         #     'energyplus',
         #     '--convert-only',
         #     '-c', idf_path,
-        #     '-d', f"data/model_files",
+        #     '-d', folder_path,
         # ]
         # subprocess.run(command)
 

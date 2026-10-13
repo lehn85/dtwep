@@ -33,6 +33,7 @@ class GreenhouseInitialCalibrationExperiment(BaseInitialCalibrationExperiment):
 
         # 1. Simplify Model A base to create Model B base if needed
         if base_a and base_a.exists() and base_b and (not base_b.exists() or self.force_rerun):
+            base_b.parent.mkdir(parents=True, exist_ok=True)
             simplify_to_model_b(base_a, base_b)
 
         # 2. Extend Model B

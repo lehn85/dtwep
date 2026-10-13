@@ -3,19 +3,19 @@ description: GA calibration of Model B against Model A target dataset with compu
 
 ground_truth:
   type: simulation
-  base_osm_path: data/model_files/greenhouse_sawtooth.osm
-  extended_osm_path: data/model_files/greenhouse_sawtooth_extended.osm
-  extended_idf_path: data/model_files/greenhouse_sawtooth_extended.idf
+  base_osm_path: cases/greenhouse/models/greenhouse_sawtooth.osm
+  extended_osm_path: results/greenhouse/models/greenhouse_sawtooth_extended.osm
+  extended_idf_path: results/greenhouse/models/greenhouse_sawtooth_extended.idf
   output_dir: results/greenhouse/exp1_initial_calibration/model_a
 
 model_b:
-  base_osm_path: data/model_files/greenhouse_simple.osm
-  extended_osm_path: data/model_files/greenhouse_simple_extended.osm
-  extended_idf_path: data/model_files/greenhouse_simple_extended.idf
+  base_osm_path: results/greenhouse/models/greenhouse_simple.osm
+  extended_osm_path: results/greenhouse/models/greenhouse_simple_extended.osm
+  extended_idf_path: results/greenhouse/models/greenhouse_simple_extended.idf
   output_dir: results/greenhouse/exp1_initial_calibration/model_b
 
 weather:
-  epw_path: data/weather/VNM_CVN_Ban.Me.Thuot.488750_TMYx.2011-2025.epw
+  epw_path: cases/greenhouse/weather/VNM_CVN_Ban.Me.Thuot.488750_TMYx.2011-2025.epw
 
 calibration_config: cases/greenhouse/configs/calibration.yaml
 results_dir: results/greenhouse/exp1_initial_calibration

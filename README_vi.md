@@ -83,6 +83,8 @@ digital-twin-with-energy-plus/
 ├── cases/                               # Thư mục chứa các ca nghiên cứu (Use cases)
 │   └── greenhouse/                      # Ca nghiên cứu Nhà kính Nông điện Răng cưa
 │       ├── case.yaml                    # Siêu dữ liệu ca nghiên cứu, mô hình và danh mục thí nghiệm
+│       ├── models/                      # Mô hình OpenStudio gốc ban đầu (greenhouse_sawtooth.osm)
+│       ├── weather/                     # Bộ tệp dữ liệu thời tiết EnergyPlus (EPW) của ca
 │       ├── adapters.py                  # Bộ ánh xạ tham số chuyên biệt cho nhà kính
 │       ├── geometry.py                  # Trình sinh hình học tham số cho OpenStudio
 │       ├── model_transform.py           # Mở rộng Model A và rút gọn sang Model B
@@ -95,14 +97,12 @@ digital-twin-with-energy-plus/
 │           ├── exp1_initial_calibration.yaml
 │           ├── exp2_scenario_simulation.yaml
 │           └── exp3_recalibration.yaml
-├── data/                                # Tệp mô hình và cơ sở dữ liệu thời tiết
-│   ├── model_files/                     # Các tệp mô hình OSM và IDF gốc/mở rộng
-│   └── weather/                         # Tệp thời tiết EnergyPlus (EPW)
 ├── frontend/                            # Mã nguồn giao diện Web React + Vite + TypeScript
 │   ├── src/                             # Thành phần UI, dịch vụ gọi API và kiểu dữ liệu
 │   ├── dist/                            # Bản build production được FastAPI phục vụ
 │   └── package.json                     # Quản lý phụ thuộc & scripts của frontend
 ├── results/                             # Kết quả đầu ra của thí nghiệm, bảng CSV và đồ thị
+│   └── greenhouse/models/               # Các mô hình mở rộng OSM/IDF và Model B sinh tự động (được git bỏ qua)
 ├── run_greenhouse_experiments.ps1       # Script PowerShell tương tác chạy thí nghiệm (Windows)
 ├── run_greenhouse_experiments.sh        # Script Bash tương tác chạy thí nghiệm (Linux/macOS)
 ├── main.py                              # Server chính FastAPI (REST API, WebSocket, SPA host)

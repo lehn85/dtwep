@@ -42,20 +42,21 @@ app.add_middleware(
 case_manager = CaseManager(WORKSPACE_ROOT)
 
 # Pre-computation / model preparation
-DATA_DIR = WORKSPACE_ROOT / "data" / "model_files"
-BASE_OSM_A = DATA_DIR / "greenhouse_sawtooth.osm"
-EXTENDED_OSM_A = DATA_DIR / "greenhouse_sawtooth_extended.osm"
-EXTENDED_IDF_A = DATA_DIR / "greenhouse_sawtooth_extended.idf"
+MODELS_DIR = WORKSPACE_ROOT / "cases" / "greenhouse" / "models"
+RESULTS_MODELS_DIR = WORKSPACE_ROOT / "results" / "greenhouse" / "models"
+BASE_OSM_A = MODELS_DIR / "greenhouse_sawtooth.osm"
+EXTENDED_OSM_A = RESULTS_MODELS_DIR / "greenhouse_sawtooth_extended.osm"
+EXTENDED_IDF_A = RESULTS_MODELS_DIR / "greenhouse_sawtooth_extended.idf"
 
-BASE_OSM_B = DATA_DIR / "greenhouse_simple.osm"
-EXTENDED_OSM_B = DATA_DIR / "greenhouse_simple_extended.osm"
-EXTENDED_IDF_B = DATA_DIR / "greenhouse_simple_extended.idf"
+BASE_OSM_B = RESULTS_MODELS_DIR / "greenhouse_simple.osm"
+EXTENDED_OSM_B = RESULTS_MODELS_DIR / "greenhouse_simple_extended.osm"
+EXTENDED_IDF_B = RESULTS_MODELS_DIR / "greenhouse_simple_extended.idf"
 
 
 @app.on_event("startup")
 def startup_event():
     print("Startup: Checking and preparing Greenhouse baseline models...")
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    RESULTS_MODELS_DIR.mkdir(parents=True, exist_ok=True)
     try:
         if BASE_OSM_A.exists() and (not EXTENDED_IDF_A.exists() or not EXTENDED_IDF_B.exists()):
             simplify_to_model_b(str(BASE_OSM_A), str(BASE_OSM_B))
@@ -63,7 +64,7 @@ def startup_event():
             extend_greenhouse_osm(str(BASE_OSM_B), str(EXTENDED_OSM_B))
             translate_osm_to_idf(str(EXTENDED_OSM_A), str(EXTENDED_IDF_A))
             translate_osm_to_idf(str(EXTENDED_OSM_B), str(EXTENDED_IDF_B))
-            print("Extended IDFs ready.")
+            print("Extended IDFs ready in results/greenhouse/models.")
     except Exception as e:
         print(f"Startup model preparation notice: {e}")
 
