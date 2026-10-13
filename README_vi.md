@@ -1,6 +1,6 @@
 # Digital Twin with EnergyPlus (DTWEP)
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](Licence.txt)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python Version](https://img.shields.io/badge/Python-3.12%2B-blue.svg)](pyproject.toml)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/Frontend-React%2018%20%7C%20Vite%20%7C%20TypeScript-61dafb.svg)](https://react.dev)
@@ -107,7 +107,7 @@ digital-twin-with-energy-plus/
 ├── run_greenhouse_experiments.sh        # Script Bash tương tác chạy thí nghiệm (Linux/macOS)
 ├── main.py                              # Server chính FastAPI (REST API, WebSocket, SPA host)
 ├── pyproject.toml                       # Cấu hình dự án Python & danh sách thư viện phụ thuộc
-├── Licence.txt                          # Bản quyền phần mềm GNU General Public License v3.0
+├── LICENSE                              # Bản quyền phần mềm MIT License
 └── README_vi.md                         # Tài liệu hướng dẫn dự án (Tiếng Việt)
 ```
 
@@ -351,7 +351,7 @@ Toàn bộ kết quả chạy thí nghiệm được lưu trữ lâu dài tại 
 
 ## 📜 Giấy phép Bản quyền (License)
 
-Dự án được phân phối dưới giấy phép **GNU General Public License v3.0 (GPLv3)**. Chi tiết đầy đủ xem tại tệp [Licence.txt](Licence.txt).
+Dự án được phân phối dưới giấy phép **MIT License**. Chi tiết đầy đủ xem tại tệp [LICENSE](LICENSE).
 
 ---
 

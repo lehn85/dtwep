@@ -1,6 +1,6 @@
 # Digital Twin with EnergyPlus (DTWEP)
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](Licence.txt)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python Version](https://img.shields.io/badge/Python-3.12%2B-blue.svg)](pyproject.toml)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/Frontend-React%2018%20%7C%20Vite%20%7C%20TypeScript-61dafb.svg)](https://react.dev)
@@ -107,7 +107,7 @@ digital-twin-with-energy-plus/
 ├── run_greenhouse_experiments.sh        # Interactive Bash experiment runner (Linux/macOS)
 ├── main.py                              # FastAPI entry point (REST APIs, WebSocket, SPA host)
 ├── pyproject.toml                       # Python project configuration and dependencies
-├── Licence.txt                          # GNU General Public License v3.0
+├── LICENSE                              # MIT License
 └── README.md                            # Project documentation (English)
 ```
 
@@ -351,7 +351,7 @@ All experiment runs save persistent artifacts under `results/<case_id>/<experime
 
 ## 📜 License
 
-This project is licensed under the **GNU General Public License v3.0 (GPLv3)**. See the [Licence.txt](Licence.txt) file for the complete license text.
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for the complete license text.
 
 ---
 
